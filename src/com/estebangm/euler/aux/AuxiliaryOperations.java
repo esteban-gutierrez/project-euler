@@ -4,38 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuxiliaryOperations {
-
-    public static Integer[] getPrimeNumbers(int start, int end) {
+    public static List<Long> getPrimeNumbers(long start, long end) {
+        List<Long> primeNumbersList = new ArrayList<>();
         if (start >= 0 && end > start) {
-            List<Integer> primeNumbersList = new ArrayList<>();
-            for (int i = start; i <= end; i++) {
+            for (long i = start; i <= end; i++) {
                 if (isPrime(i)) {
                     primeNumbersList.add(i);
                 }
             }
-            return (Integer []) primeNumbersList.toArray();
-        } else {
-            return null;
         }
+        return primeNumbersList;
     }
 
-    public static boolean isPrime(int number) {
-        if (number > 0) {
-            return (findFirstDivider(number) == number);
+    public static boolean isPrime(long num) {
+        if (num <= 1) {
+            return false;
         }
-        return false;
-    }
-
-    private static int findFirstDivider(int number) {
-        int firstDivider = 1;
-        if (number > 1) {
-            for (int i = 2; i <= number; i++) {
-                if (number % i == 0) {
-                    firstDivider = i;
-                    break;
-                }
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
             }
         }
-        return firstDivider;
+        return true;
+    }
+
+    public static List<Long> getPrimeDividersOf(long number) {
+        List<Long> primeDividers = new ArrayList<>();
+        for (long i = 1; i <= Math.sqrt(number); i++) {
+            if (number % i == 0 && isPrime(i)) {
+                primeDividers.add(i);
+            }
+        }
+        return primeDividers;
     }
 }
