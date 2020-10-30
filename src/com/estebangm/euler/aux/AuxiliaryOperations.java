@@ -37,4 +37,15 @@ public class AuxiliaryOperations {
         }
         return primeDividers;
     }
+
+    public static boolean isPalindrome(long number) {
+        String numberString = String.valueOf(number);
+        int numberOfDigits = numberString.length();
+        for (int i = 0; i < numberOfDigits / 2; i++) {
+            if (numberString.charAt(i) != numberString.charAt(numberOfDigits - (i + 1))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
