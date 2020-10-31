@@ -1,6 +1,7 @@
 package com.estebangm.euler.aux;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AuxiliaryOperations {
@@ -47,5 +48,18 @@ public class AuxiliaryOperations {
             }
         }
         return true;
+    }
+
+    public static int[] sortIntArray(int [] array) {
+        Arrays.sort(array);
+        return array;
+    }
+
+    public static void main (String [] args) {
+        int [] array = { 14, 11, 10, 12, 14 };
+        array = sortIntArray(array);
+        for (int i : array) {
+            System.out.println(i);
+        }
     }
 }
