@@ -1,5 +1,7 @@
 package com.estebangm.euler.aux.poker;
 
+import java.util.Arrays;
+
 public class PlayerCards {
     public static final int CARDS_IN_HAND = 5;
     private Card[] cards;
@@ -32,5 +34,19 @@ public class PlayerCards {
             }
         }
         return false;
+    }
+
+    public int[] getCardsValues() {
+        int[] cardValues = new int[CARDS_IN_HAND];
+        for (int i = 0; i < CARDS_IN_HAND; i++) {
+            cardValues[i] = getCards()[i].getNumber();
+        }
+        return cardValues;
+    }
+
+    public int[] getSortedCardsValues() {
+        int[] cardValues = getCardsValues();
+        Arrays.sort(cardValues);
+        return cardValues;
     }
 }

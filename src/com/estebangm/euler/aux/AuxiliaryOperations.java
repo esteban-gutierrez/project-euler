@@ -49,17 +49,4 @@ public class AuxiliaryOperations {
         }
         return true;
     }
-
-    public static int[] sortIntArray(int [] array) {
-        Arrays.sort(array);
-        return array;
-    }
-
-    public static void main (String [] args) {
-        int [] array = { 14, 11, 10, 12, 14 };
-        array = sortIntArray(array);
-        for (int i : array) {
-            System.out.println(i);
-        }
-    }
 }

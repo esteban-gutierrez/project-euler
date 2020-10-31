@@ -2,6 +2,7 @@ package com.estebangm.euler;
 
 import com.estebangm.euler.aux.poker.Card;
 import com.estebangm.euler.aux.poker.PlayerCards;
+import com.estebangm.euler.aux.poker.PlayerHand;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,23 +62,45 @@ import static com.estebangm.euler.aux.poker.PlayerHand.*;
  * each player's hand is in no specific order, and in each hand there is a clear winner.
  *
  * How many hands does Player 1 win?
+ *
+ * ANSWER: 376
  */
 public class PokerHands {
     public static final String HANDS_FILE_PATH = "attachments/p054_poker.txt";
 
     public static void main (String [] args) {
+        int playerOneWins = 0;
         try {
             File handsFile = new File(HANDS_FILE_PATH);
             Scanner myReader = new Scanner(handsFile);
+            int lineNumber = 1;
             while (myReader.hasNextLine()) {
+                System.out.print(lineNumber + ") ");
                 String line = myReader.nextLine();
                 PlayerCards[] playerCards = readPlayersCards(line);
-                System.out.println(line);
+                int playerOneHand = PlayerHand.evaluateHand(playerCards[0]);
+                int playerTwoHand = PlayerHand.evaluateHand(playerCards[1]);
+                System.out.print(playerOneHand + " vs " + playerTwoHand);
+                if (playerOneHand > playerTwoHand) {
+                    playerOneWins++;
+                    System.out.print(" > " + playerOneWins + "!!");
+                } else if (playerOneHand == playerTwoHand) {
+                    playerOneHand = PlayerHand.evaluateTieHand(playerCards[0]);
+                    playerTwoHand = PlayerHand.evaluateTieHand(playerCards[1]);
+                    System.out.print(" > TIE! > " + playerOneHand + " vs " + playerTwoHand);
+                    if (playerOneHand > playerTwoHand) {
+                        playerOneWins++;
+                        System.out.print(" > " + playerOneWins + "!!");
+                    }
+                }
+                System.out.println();
+                lineNumber++;
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println(playerOneWins);
     }
 
     private static PlayerCards[] readPlayersCards(String line) {
@@ -99,6 +122,8 @@ public class PokerHands {
 
     private static int extractCardValue(char value) {
         switch (value) {
+            case TEN:
+                return TEN_VALUE;
             case JACK:
                 return JACK_VALUE;
             case QUEEN:
@@ -112,5 +137,9 @@ public class PokerHands {
         }
     }
 
+    private static int processHandValueInTie(PlayerCards playerCards) {
+        int tieValue = 0;
 
+        return tieValue;
+    }
 }
