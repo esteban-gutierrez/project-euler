@@ -29,6 +29,16 @@ public class AuxiliaryOperations {
         return true;
     }
 
+    public static List<Long> getDividersOf(long number) {
+        List<Long> dividers = new ArrayList<>();
+        for (long i = 1; i <= number; i++) {
+            if (number % i == 0) {
+                dividers.add(i);
+            }
+        }
+        return dividers;
+    }
+
     public static List<Long> getPrimeDividersOf(long number) {
         List<Long> primeDividers = new ArrayList<>();
         for (long i = 1; i <= Math.sqrt(number); i++) {
