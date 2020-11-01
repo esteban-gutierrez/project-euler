@@ -28,7 +28,7 @@ import static com.estebangm.euler.aux.AuxiliaryOperations.getPrimeDividersOf;
  *
  * Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
  *
- * ANSWER:
+ * ANSWER: 510510
  */
 public class TotientMaximum {
     public static final Long GIVEN_NUMBER = 1000000L;
