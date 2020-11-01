@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.estebangm.euler.aux.AuxiliaryOperations.getDividersOf;
-import static com.estebangm.euler.aux.AuxiliaryOperations.getPrimeNumbers;
+import static com.estebangm.euler.aux.AuxiliaryOperations.getPrimeDividersOf;
 
 /**
  * ID 69
@@ -31,15 +31,15 @@ import static com.estebangm.euler.aux.AuxiliaryOperations.getPrimeNumbers;
  * ANSWER:
  */
 public class TotientMaximum {
-    public static final Long GIVEN_NUMBER = 10000L;
+    public static final Long GIVEN_NUMBER = 1000000L;
 
     public static void main (String [] args) {
         Float totientMaximum = 0f;
         Long nMaximum = 0l;
         for (long i = 2; i <= GIVEN_NUMBER; i++) {
-            List<Long> eulersTotient = getEulersTotientValuesFor(i);
-            float totient = (float) i/eulersTotient.size();
-            //System.out.println(i + " | " + eulersTotient + "\t | " + totient);
+            long eulersFunction = getOptimalSolutionOfEulersFunctionFor(i);
+            float totient = (float) i/eulersFunction;
+            //System.out.println(i + " | " + eulersFunction + "\t | " + totient);
             if (totient > totientMaximum) {
                 totientMaximum = totient;
                 nMaximum = i;
@@ -48,7 +48,32 @@ public class TotientMaximum {
         System.out.println(nMaximum + " > phi(n)=" + totientMaximum);
     }
 
-    private static List<Long> getEulersTotientValuesFor(Long n) {
+    private static long getOptimalSolutionOfEulersFunctionFor(Long n) {
+        long totient = n;
+        List<Long> primeDividers = getPrimeDividersOf(n);
+        for (Long primeDivider : primeDividers) {
+            totient = totient - (totient/primeDivider);
+        }
+        return totient;
+    }
+
+    // Only valid for n < 1000 (aprox)
+    public static void naiveSolution() {
+        Float totientMaximum = 0f;
+        Long nMaximum = 0l;
+        for (long i = 2; i <= GIVEN_NUMBER; i++) {
+            List<Long> eulersTotient = getNaiveSolutionOfEulersTotientValuesFor(i);
+            float totient = (float) i/eulersTotient.size();
+            System.out.println(i + " | " + eulersTotient + "\t | " + totient);
+            if (totient > totientMaximum) {
+                totientMaximum = totient;
+                nMaximum = i;
+            }
+        }
+        System.out.println(nMaximum + " > phi(n)=" + totientMaximum);
+    }
+
+    private static List<Long> getNaiveSolutionOfEulersTotientValuesFor(Long n) {
         List<Long> eulersTotientValues = new ArrayList<>();
         List<Long> dividersOfN = getDividersOf(n);
         for (long i = 1; i < n; i++) {
